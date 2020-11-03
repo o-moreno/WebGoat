@@ -1,10 +1,4 @@
 pipeline {
-    environment {
-        // Project
-        projectName = 'WebGoat QA Lovers Day'
-        // SonarQube
-        projectKey="QALoversDay.WebGoat"
-    }
 
     agent any
 
