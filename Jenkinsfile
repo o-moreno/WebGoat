@@ -3,7 +3,6 @@ pipeline {
         // Project
         projectName = 'WebGoat QA Lovers Day'
         // SonarQube
-        sources='webgoat*'
         projectKey="QALoversDay.WebGoat"
     }
 
@@ -21,18 +20,16 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube-Qalitax') {
                     withMaven(maven: 'Maven 3') {
-                        bat "mvn $SONAR_MAVEN_GOAL -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.branch.name=$BRANCH_NAME"
+                        bat "mvn $SONAR_MAVEN_GOAL -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.branch.name=$BRANCH_NAME -Dsonar.projectName=$projectName"
                     }
                 }
             }
         }
         stage("Quality Gate") {
             steps {
-                echo 'Iniciando comprobación de umbral de calidad'
                 timeout(time: 30, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
-                echo 'Finalizada comprobación de umbral de calidad'
             }
         }
         stage('Deploy') {
