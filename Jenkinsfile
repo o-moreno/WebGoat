@@ -24,12 +24,11 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube-Qalitax') {
                     withMaven(maven: 'Maven 3') {
-                        bat "mvn $SONAR_MAVEN_GOAL -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.branch.name=$BRANCH_NAME -Dsonar.projectName=$projectName"
+                        bat "mvn $SONAR_MAVEN_GOAL -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.branch.name=$BRANCH_NAME"
                     }
                 }
             }
         }
-        /*
         stage("Quality Gate") {
             steps {
                 timeout(time: 30, unit: 'MINUTES') {
@@ -37,7 +36,6 @@ pipeline {
                 }
             }
         }
-        */
         stage('Deploy') {
             steps {
                 bat "mvn -pl webgoat-server spring-boot:run"
