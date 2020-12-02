@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Code Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube-local') {
+                withSonarQubeEnv('SonarQube-Qalitax') {
                     withMaven(maven: 'Maven 3') {
                         bat "mvn $SONAR_MAVEN_GOAL -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.branch.name=$BRANCH_NAME"
                     }
